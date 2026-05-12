@@ -1,0 +1,10 @@
+void main() {
+  print(facto(4));
+}
+
+int facto(int a) {
+  if (a == 0)
+    return 1;
+  else 
+    return facto(a - 1) * a;
+}
