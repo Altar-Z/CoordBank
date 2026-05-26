@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart'; // To handle the Position type
 import 'screens/home_screen.dart';
 import 'screens/collection_screen.dart';
+import 'screens/map_screen.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -34,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           HomeScreen(onPositionFetched: _updatePosition),
           // Pass the current shared position to CollectionScreen
           CollectionScreen(currentPosition: _currentPosition),
-          const Center(child: Text("Map coming soon...")),
+          MapScreen(currentPosition: _currentPosition),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       // 1. Fetching position
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        desiredAccuracy: LocationAccuracy.best,
       );
 
       // Check if the widget is still in the tree before proceeding
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // 3. Fetching weather
       final weatherData = await WeatherService().fetchWeather(
           position.latitude,
-          position.longitude
+          position.longitude,
       );
 
       // 4. Update UI only if the widget is still visible (mounted)
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _latitude = position.latitude.toString();
           _longitude = position.longitude.toString();
-          _altitude = "${position.altitude.toStringAsFixed(1)} m";
+          _altitude = position.altitude.toString();
           _temperature = "${weatherData['current_weather']['temperature']}°C";
           _isLoading = false;
         });
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListTile(
                 leading: const Icon(Icons.satellite_alt),
                 title: const Text("GPS"),
-                subtitle: Text("Latitude: $_latitude\nLongitude: $_longitude\nAltitude: $_altitude"),
+                subtitle: Text("Latitude: $_latitude\nLongitude: $_longitude\nAltitude: ${_altitude == "0.0" ? "Not possible on this device" : _altitude}"),
               ),
             ),
             const SizedBox(height: 10),

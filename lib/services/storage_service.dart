@@ -30,27 +30,54 @@ class StorageService {
     String csvRow = const ListToCsvConverter(fieldDelimiter: ';').convert(rows);
     await file.writeAsString('$csvRow\n', mode: FileMode.append);
   }
+  Future<List<LocationPoint>> loadLocations() async {
+    final file = await _getFilePath();
+    if (!await file.exists()) return [];
 
+    // On utilise readAsLines() pour forcer la séparation des lignes [1]
+    List<String> lines = await file.readAsLines();
+
+    // On transforme chaque ligne de texte en un objet LocationPoint
+    return lines.where((line) => line.isNotEmpty).map((line) {
+      // On découpe la ligne par le point-virgule [1]
+      List<String> columns = line.split(';');
+
+      // Sécurité : on vérifie qu'on a bien nos 5 colonnes
+      if (columns.length >= 5) {
+        return LocationPoint(
+          source: columns[0],      // Cible l'index 0 pour l'émoji [1]
+          timestamp: columns[1],   // Cible l'index 1 pour la date
+          latitude: double.tryParse(columns[2]) ?? 0.0,
+          longitude: double.tryParse(columns[3]) ?? 0.0,
+          altitude: double.tryParse(columns[4]) ?? 0.0,
+        );
+      }
+      return null;
+    })
+        .whereType<LocationPoint>() // Enlève les lignes mal formées
+        .toList();
+  }
+/*
   // LOAD: Maps indices 0 to 4 strictly to avoid RangeError
   Future<List<LocationPoint>> loadLocations() async {
     final file = await _getFilePath();
     if (!await file.exists()) return [];
 
-    final contents = await file.readAsString();
-    List<List<dynamic>> csvTable = const CsvToListConverter(fieldDelimiter: ';').convert(contents);
-
+    final contents = await file.readAsLines();
+    List<String> Lines = const CsvToListConverter(fieldDelimiter: ';').convert(contents);
+    print(csvTable);
     // Safety: only process rows that have exactly 5 columns
     return csvTable.where((row) => row.length >= 5).map((row) {
       return LocationPoint(
-        source: row.toString(),
-        timestamp: row[2].toString(),
-        latitude: double.tryParse(row[3].toString()) ?? 0.0,
-        longitude: double.tryParse(row[4].toString()) ?? 0.0,
-        altitude: double.tryParse(row[5].toString()) ?? 0.0, // This is Index 4
+        source: row[0].toString(),
+        timestamp: row[1].toString(),
+        latitude: double.tryParse(row[2].toString()) ?? 0.0,
+        longitude: double.tryParse(row[3].toString()) ?? 0.0,
+        altitude: double.tryParse(row[4].toString()) ?? 619.93654, // This is Index 4
       );
     }).toList();
   }
-
+*/
   // Completely clear the file
   Future<void> deleteAll() async {
     final file = await _getFilePath();
