@@ -9,8 +9,9 @@ import '../models/location_point.dart';
 class MapScreen extends StatefulWidget {
   // On reçoit la position GPS actuelle depuis le MainScreen pour rester synchrone
   final Position? currentPosition;
+  final LatLng? targetLocation;
 
-  const MapScreen({super.key, this.currentPosition});
+  const MapScreen({super.key, this.currentPosition, this.targetLocation});
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -48,9 +49,10 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     // Position initiale : soit la position GPS actuelle, soit un point par défaut (ex: Madrid)
-    LatLng initialCenter = widget.currentPosition != null
-        ? LatLng(widget.currentPosition!.latitude, widget.currentPosition!.longitude)
-        : const LatLng(40.4167, -3.7037);
+    LatLng initialCenter = widget.targetLocation ??
+        (widget.currentPosition != null
+            ? LatLng(widget.currentPosition!.latitude, widget.currentPosition!.longitude)
+            : const LatLng(40.4167, -3.7037));
 
     return Scaffold(
       appBar: AppBar(title: const Text("🗺️ Map (OpenStreetMap)")),
@@ -60,8 +62,8 @@ class _MapScreenState extends State<MapScreen> {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
-              initialCenter: initialCenter,
-              initialZoom: 13.0,
+              initialCenter: initialCenter, // Utilise le point sélectionné
+              initialZoom: widget.targetLocation != null ? 15.0 : 13.0,
             ),
             children: [
               TileLayer(

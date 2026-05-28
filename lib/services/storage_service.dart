@@ -22,7 +22,8 @@ class StorageService {
         point.timestamp,   // Index 1
         point.latitude,    // Index 2
         point.longitude,   // Index 3
-        point.altitude     // Index 4
+        point.altitude,     // Index 4
+        point.userNote
       ]
     ];
 
@@ -38,18 +39,19 @@ class StorageService {
     List<String> lines = await file.readAsLines();
 
     // On transforme chaque ligne de texte en un objet LocationPoint
-    return lines.where((line) => line.isNotEmpty).map((line) {
+    return lines.map((line) {
       // On découpe la ligne par le point-virgule [1]
       List<String> columns = line.split(';');
 
       // Sécurité : on vérifie qu'on a bien nos 5 colonnes
-      if (columns.length >= 5) {
+      if (columns.length >= 6) {
         return LocationPoint(
           source: columns[0],      // Cible l'index 0 pour l'émoji [1]
           timestamp: columns[1],   // Cible l'index 1 pour la date
           latitude: double.tryParse(columns[2]) ?? 0.0,
           longitude: double.tryParse(columns[3]) ?? 0.0,
           altitude: double.tryParse(columns[4]) ?? 0.0,
+          userNote: columns[5]
         );
       }
       return null;
@@ -94,6 +96,19 @@ class StorageService {
       final file = await _getFilePath();
       await file.writeAsString("");
       for (var p in currentList) {
+        await saveLocation(p);
+      }
+    }
+  }
+
+  Future<void> updatePoint(int index, String newNote) async {
+    List<LocationPoint> points = await loadLocations();
+    if (index >= 0 && index < points.length) {
+      points[index].userNote = newNote;
+      // On efface et on réécrit tout le fichier avec les notes mises à jour
+      final file = await _getFilePath();
+      await file.writeAsString("");
+      for (var p in points) {
         await saveLocation(p);
       }
     }
