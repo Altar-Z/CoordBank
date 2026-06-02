@@ -16,11 +16,11 @@ This app is a location management and sharing tool built with Flutter, designed 
   <tr>
     <td>
       <img src="screen/homeScreen.png" width="80%" alt="Home screen with your coordinates and the weather"/>
-      <p align="center">Describe here image 1</p>
+      <p align="center">Home screen with your coordinates and the weather</p>
     </td>
     <td>
       <img src="screen/Map%20Screen.png" width="80%" alt="Map screen where you can see the whole map of the world and saves point where you want"/>
-      <p align="center">Describe here image 2</p>
+      <p align="center">Map screen where you can see the whole map of the world and saves point where you want</p>
     </td>
     <td>
       <img src="screen/collectionScreen.png" width="80%" alt="Collection screen where you see all your saved points, add a notes to them and share and received points"/>
@@ -34,7 +34,7 @@ This app is a location management and sharing tool built with Flutter, designed 
 ## Demo Video
 Video demonstrating how the app works :
 <a href="https://youtu.be/E9zGqpLx7cE">
-<img src="img/thumb.png" alt="Noise meter app" width="100" />
+<img src="img/thumb.png" alt="CoordBank presentation video" width="100" />
 </a>
 
 ## Features
