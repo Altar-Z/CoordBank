@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
       // On passe l'override à la Map
       MapScreen(currentPosition: _currentPosition, targetLocation: _mapCenterOverride),
       // On passe la fonction de rappel à la Collection
-      CollectionScreen(onSeeOnMap: _handleSeeOnMap),
+      CollectionScreen(currentPosition: _currentPosition, onSeeOnMap: _handleSeeOnMap),
     ];
 
     return Scaffold(
