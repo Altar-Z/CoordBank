@@ -34,7 +34,7 @@ This app is a location management and sharing tool built with Flutter, designed 
 ## Demo Video
 Video demonstrating how the app works :
 <a href="coming...">
-<img src="img/thumb.png" alt="CoordBank presentation video" width="100" />
+<img src="img/thumb.png" alt="video coming...="100" />
 </a>
 
 ## Features
