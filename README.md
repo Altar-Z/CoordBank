@@ -1,12 +1,9 @@
-# Your App's Name (e.g., MADTracking)
-CoordBank
+# CoordBank #
 # Workspace
 Github:
 - Repository: https://github.com/Altar-Z/CoordBank
 - Releases: https://github.com/Altar-Z/CoordBank/releases/
-
 Workspace: https://upm365.sharepoint.com/sites/Dart_Project/SitePages/CollabHome.aspx?market=es-ES
-
 
 ## Description
 This app is a location management and sharing tool built with Flutter, designed to bridge the gap between automated GPS tracking and manual geographical interest. It allows users to capture real-time sensor data, annotate it with personal context, and share specific locations through a private, decentralized system.
@@ -33,12 +30,12 @@ This app is a location management and sharing tool built with Flutter, designed 
 
 ## Demo Video
 Video demonstrating how the app works :
-<a href="coming...">
+<a href="https://youtu.be/8kJ3DpIpadE">
 </a>
 
 ## Features
 
-- Real-time GPS Tracking: The app captures and displays live coordinates, including latitude, longitude, and altitude, directly from the device's sensors.
+- Real-time GPS Tracking: The app captures and displays live coordinates, including latitude, longitude, and altitude.
 - Manual Map Pointing: Users can navigate an interactive OpenStreetMap and use a fixed central crosshair to manually select and save specific coordinates.
 - Contextual Weather Reporting: The app automatically fetches and displays live weather data (temperature) for the user's current location.
 - Persistent CSV Storage: All saved locations are stored locally on the device in a CSV format, ensuring data is preserved even after the app is closed or the device is restarted.
